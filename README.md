@@ -1,4 +1,5 @@
-# ALTENChallenge
+
+# ALTEN Challenge
 
 The solution objective is to enable one of our partners to view the status of the connection among some vehicles on a monitoring display.
 
@@ -14,7 +15,7 @@ Empty result on the screen means no vehicle gives the required status.
 
 ## Solution Hierarchy:
 
-
+![enter image description here](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/Resources/images/alten-architecture.PNG)
 As we see here, the application consists of a front-end layer which is developed using Angular MVC ASP.NET Core (SPA), and middle-ware layer that consists of API gateway that communicates with the backend services.
    
 ### 1. Front-end (FE):
