@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DataDomainService.GenericsContext\DataDomainService.GenericsContext.csproj" />
+    <ProjectReference Include="..\DataDomainService.Models\DataDomainService.Models.csproj" />
+    <ProjectReference Include="..\Logging\Logging.csproj" />
+    <ProjectReference Include="..\RabbitMQEventBus\RabbitMQEventBus.csproj" />
+  </ItemGroup>
+
+</Project>

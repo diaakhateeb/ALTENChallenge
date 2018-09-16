@@ -1,0 +1,64 @@
+<h1>Live Ping Vehicles Status</h1>
+
+<p *ngIf="!(customers && vehicles && vehicleStatuses)"><em>Loading...</em></p>
+
+<table class="table table-responsive table-bordered table-striped" style="border-style:ridge">
+  <tr>
+    <td><label>Customer </label></td>
+    <td>
+      <select [ngModel]="selectedCustomerValue" (change)="getCustomerTransById($event.target.value)" class="form-control">
+        <option value="0">--- All ---</option>
+        <option *ngFor="let c of customers" value={{c.id}}>
+          {{c.name}}
+        </option>
+      </select>
+    </td>
+
+    <td><label>Vehicle</label></td>
+    <td>
+      <select [ngModel]="selectedVehicleValue" (change)="getVehicleTransById($event.target.value)" class="form-control">
+        <option value="0">--- All ---</option>
+        <option *ngFor="let v of vehicles" value={{v.id}}>
+          {{v.code}}
+        </option>
+      </select>
+    </td>
+
+    <td><label>Status</label></td>
+    <td>
+      <select [ngModel]="selectedStatusValue" (change)="getVehicleStatusTransById($event.target.value)" class="form-control">
+        <option value="-1">--- All ---</option>
+        <option value="1">On</option>
+        <option value="0">Off</option>
+      </select>
+    </td>
+  </tr>
+</table>
+
+<table class='table table-responsive table-hover table-bordered table-striped' *ngIf="vehicleStatuses">
+  <thead>
+    <tr>
+      <th>Vehicle Code</th>
+      <th>Vehicle Registration No.</th>
+      <th>Customer</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let vs of vehicleStatuses">
+      <td>{{ vs.vehicleCode }}</td>
+      <td>{{ vs.vehicleRegistrationNumber }}</td>
+      <td>{{ vs.customerName }}</td>
+      <td [style.background-color]="setVehicleStatusColor(vs.status)">{{ vs.status }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<table class='table table-responsive table-hover table-bordered table-striped' style="width:50%">
+  <thead>
+    <tr>
+      <td style="font-weight:bold">Next Ping Signal will be at: </td>
+      <td style="font-weight:bold">{{nextTickTime}}</td>
+    </tr>
+  </thead>
+</table>

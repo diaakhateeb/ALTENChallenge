@@ -1,0 +1,36 @@
+<h1>Customer Data</h1>
+
+<p *ngIf="!customers"><em>Loading...</em></p>
+
+<table class="table">
+  <tr>
+    <td><label>Customer Name<span style="color:red"> *</span></label></td>
+    <td>&nbsp;</td>
+    <td><input type="text" [(ngModel)]="customerName" class="form-control" required placeholder="Required" /></td>
+    <td>&nbsp;</td>
+    <td><label>Address<span style="color:red"> *</span></label></td>
+    <td>&nbsp;</td>
+    <td><input type="text" [(ngModel)]="customerAddress" class="form-control" required placeholder="Required" /></td>
+    <td><button type="submit" (click)="addCustomer()" class="btn btn-primary">Save</button></td>
+  </tr>
+</table>
+
+
+<table class="table table-responsive table-bordered table-striped" *ngIf="customers">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Address</th>
+      <td colspan="2" style="font-weight:bold">Action</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let c of customers">
+      <td>{{ c.name }}</td>
+      <td>{{ c.address }}</td>
+      <td><a [routerLink]="['/customer-edit']" [queryParams]="{id: c.id}">Edit</a></td>
+      <td><a [routerLink]="" (click)="deleteCustomer(c.id)">Delete</a></td>
+    </tr>
+  </tbody>
+</table>
+

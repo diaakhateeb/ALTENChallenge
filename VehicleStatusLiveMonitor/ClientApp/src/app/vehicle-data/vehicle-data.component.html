@@ -1,0 +1,56 @@
+<h1>Vehicle Data</h1>
+
+<!--<p>This component demonstrates fetching data from the server.</p>-->
+
+<p *ngIf="!vehicles"><em>Loading...</em></p>
+
+<form (ngSubmit)="onSubmit()">
+  <table class="table">
+    <tr>
+      <td><label>Vehicle Code</label><span style="color:red"> *</span></td>
+      <td>&nbsp;</td>
+      <td><input type="text" [(ngModel)]="vehicleCode" required placeholder="Required" name="vehicleCode" class="form-control" /></td>
+      <td>&nbsp;</td>
+      <td><label>Registration Number<span style="color:red"> *</span></label></td>
+      <td>&nbsp;</td>
+      <td><input type="text" [(ngModel)]="vehicleRegNum" required name="vehicleName" placeholder="Required" class="form-control" /></td>
+      <td><label>Customer<span style="color:red"> *</span></label></td>
+      <td>&nbsp;</td>
+      <td>
+        <mat-form-field>
+          <mat-select disableOptionCentering placeholder="Select Customer"
+                      [(value)]="selectedCustomerValue" required>
+            <mat-option *ngFor="let c of customers" [value]="c.id">
+              {{c.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </td>
+      <td>&nbsp;</td>
+      <td><button type="submit" class="btn btn-primary">Save</button></td>
+    </tr>
+  </table>
+
+</form>
+
+<table class="table table-responsive table-bordered table-striped" *ngIf="vehicles">
+  <thead>
+    <tr>
+      <th>Vehicle Code</th>
+      <th>Registration Number</th>
+      <td style="font-weight:bold">Customer</td>
+      <td style="font-weight:bold" colspan="2">Action</td>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let v of vehicles">
+      <td>{{ v.code }}</td>
+      <td>{{ v.regNumber }}</td>
+      <td *ngIf="v.customerName !== ''; else freeVehicle">{{ v.customerName }}</td>
+      <td><a [routerLink]="['/vehicle-edit']" [queryParams]="{id: v.id}">Edit</a></td>
+      <td><a [routerLink]="" (click)="deleteVehicle(v.id)">Delete</a></td>
+    </tr>
+  </tbody>
+</table>
+<ng-template #freeVehicle><label style="color:red">&nbsp;&nbsp;No Customer Attached to This Vehicle</label></ng-template>
+

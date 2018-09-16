@@ -1,0 +1,46 @@
+<h1>Edit Customer Data</h1>
+
+<table class="table table-responsive table-bordered table-striped">
+  <tr>
+    <td><label>Customer Name</label></td>
+
+    <td><input type="text" [(ngModel)]="customerName" class="form-control" /></td>
+
+    <td><label>Address</label></td>
+
+    <td><input type="text" [(ngModel)]="customerAddress" class="form-control" /></td>
+
+    <td><label>Your Vehicles</label></td>
+
+    <td>
+      <mat-form-field>
+        <mat-select disableOptionCentering placeholder="Select to Detach" multiple [(value)]="currentVehicleValues">
+          <mat-option *ngFor="let v of vehicles" [value]="v.id">
+            {{v.code}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+    <td><label>Available Vehicles</label></td>
+
+    <td>
+      <mat-form-field>
+        <mat-select [(value)]="newVehicleValues" disableOptionCentering placeholder="Select to Attach" multiple>
+          <mat-option *ngFor="let nv of newVehicles" [value]="nv.id">
+            {{nv.code}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
+  </tr>
+</table>
+
+<table class="table table-responsive table-bordered table-striped" style="text-align:center">
+  <tbody>
+    <tr>
+      <td><button type="button" (click)="editCustomer()" class="btn btn-primary">Save</button></td>
+      <td><button type="button" (click)="backToCustomers()" class="btn btn-danger">Cancel</button></td>
+    </tr>
+  </tbody>
+</table>
+
