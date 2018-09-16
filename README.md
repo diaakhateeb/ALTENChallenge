@@ -4,7 +4,7 @@
 The solution objective is to enable one of our partners to view the status of the connection among some vehicles on a monitoring display.
 
 ## Description
-The vehicles sends the status of the connection one time per minute. The status can be compared with a ping (network trace); no request from the vehicle means no connection.
+The vehicles send the status of the connection one time per minute. The status can be compared with a ping (network trace); no request from the vehicle means no connection.
 
 <strong>Vehicle Status can be classified as below:</strong>
 
