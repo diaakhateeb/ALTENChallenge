@@ -93,7 +93,7 @@ you can create VM over cloud and install the required perquisite software such a
   - Then, execute "docker run -d -p 8080:80 --name myapp vehiclestatuslivemonitor" to open the browser and fire the application.
   - execute "gcloud docker -- push vehiclestatuslivemonitor"
  
- The application is published on a GCP VM using IIS deployment service.
+ The application is published on a [GCP VM](http://35.231.199.19:8080/) using IIS deployment service.
 
 ## Serverless Architecture
 Serverless architecture (**FaaS**) is a software design pattern where application is hosted by a third-party service, eliminating the need for server software and hardware management by the developer. Application is broken up into individual functions that can be invoked and scaled individually (e.g. Microservices).
