@@ -65,6 +65,10 @@ The solution events including errors and exceptions are logged into a text file 
    - A- Ping Vehicle every 60 seconds and get status.
    - B- Filter signaling by Customer, Vehicle and specific Status.
    - C- Connection status is stored into database before binding to UI.
+   - D- Signaling result is published into RabbitMQ Event Bus.
+   - E- UI subscribes to the event bus and fetches the result.
+ 
+ All the operations are developed in integrated components (services) that correlate to achieve the correct output.
 
 ## Deployment on Cloud
 The application is hosted on GCP (Google Cloud Platform). You can follow one of the below pathways:
