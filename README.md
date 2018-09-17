@@ -50,6 +50,35 @@ Every solution component has unit testing project:
 
 The solution events including errors and exceptions are logged into a text file that is created by default at the system partition. The location can be changed when creating an object of the logging class. 
 
+## Deployment on Cloud
+The application is hosted on GCP (Google Cloud Platform). You can follow one of the below pathways:
+ - **Application Web Service**:
+You create App Web Service and publish the application files to its directory. The cloud platform gives you capability to execute your database script through an online editor or you can connect from your local editor to the online engine.
+ - **Virtual Machine**:
+you can create VM over cloud and install the required perquisite software such as web server, .NET Core framework, SQL Server database engine and publishing service.
+
+**Deployment approaches:**
+
+ - Using Visual Studio:
+   - Publish your project, whether in a folder or over cloud using cloud platform publishing service (you need to install the cloud VS plugin).
+   - If you published in a folder, copy the files and past it on the cloud web folder where application is hosted.
+   - Configure the settings of database connection string and .NET Core exe path (dotnet.exe).
+   - Configure the web server to identify the application as a .NET Core app.
+   - Run the database script to create database and tables.
+   - Run the application from the browser.
+
+- Using Docker image:
+  - Install docker daemon.
+  - From CLI, execute "docker build -t vehiclestatuslivemonitor ."
+  - Then, execute "docker run -d -p 8080:80 --name myapp vehiclestatuslivemonitor" to open the browser and fire the application.
+  - execute "gcloud docker -- push vehiclestatuslivemonitor"
+ 
+ The application is published on a GCP VM using IIS deployment service.
+
+## # Serverless Architecture
+Serverless architecture (**FaaS**) is a software design pattern where application is hosted by a third-party service, eliminating the need for server software and hardware management by the developer. Application is broken up into individual functions that can be invoked and scaled individually (e.g. Microservices).
+Our monitoring application can take advantage of FaaS through architecting the system functions into separate components (services) such as Customer service, Vehicle Service and ConnectionStatus service that are hosted separately and connect to each other via communication base (Event Bus).
+
 ## Technical Design Highlights
 As a simple solution, it applies the following principles and  patterns.
 - **Dependency Inversion Principle**: DI principle aims to decouple the high level components implementation from the low level ones and both should depends on abstraction (Interfaces). The solution here applies such principle using Microsoft Unity container IoC (Inversion of Control), and It is used through the Factory pattern class to instantiate Repository pattern class object. It injects validations objects parameters through the constructor.
