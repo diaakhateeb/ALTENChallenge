@@ -34,6 +34,11 @@ From the ***end user perspective***, a workflow of a full signaling transaction 
  **3.** Bind result to user interface.
  **4.** Auto signaling command would be fired the minute after.
 
+ **1.** Query Vehicles with signal status checking command.
+ **2.** Wait for Vehicles to reply their statuses (On/Off).
+ **3.** Bind result to user interface.
+ **4.** Auto signaling command would be fired the minute after.
+
 From the ***technical perspective***, a workflow would be as follow:
 **1.** Based on user direction, Angular UI calls core TypeScript API services.
 **2.** Such services create Ajax requests to WebAPi Restful services controllers.
