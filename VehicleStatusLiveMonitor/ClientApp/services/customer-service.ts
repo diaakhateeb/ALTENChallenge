@@ -58,7 +58,7 @@ export class CustomerService {
 
   deleteCustomer(id: number): Observable<any> {
     const data = { id: String(id) };
-    console.log(id);
+    console.log("customer-service: " + id);
     return this.httpClient.get<any>(this.baseUrl + "api/CustomerService/DeleteCustomer", { params: data });
   }
 }

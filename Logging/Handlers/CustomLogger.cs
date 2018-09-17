@@ -17,7 +17,7 @@ namespace Logging.Handlers
         /// <param name="path">File path where events are getting registered.</param>
         public CustomLogger(string path = @"alten-vehicles-monitor.txt")
         {
-            _path = Assembly.GetExecutingAssembly().Location + @"\" + path;
+            _path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"\" + path;
         }
         /// <summary>
         /// Logs event.

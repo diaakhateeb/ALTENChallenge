@@ -12,6 +12,7 @@ using Newtonsoft.Json.Linq;
 using RabbitMQEventBus;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 
 namespace VehicleStatusLiveMonitor.Controllers
@@ -114,16 +115,29 @@ namespace VehicleStatusLiveMonitor.Controllers
         }
 
         [HttpGet("[action]")]
-        public Customer DeleteCustomer(string id)
+        public int DeleteCustomer(string id)
         {
-            Debug.WriteLine("inside delete");
-            var customer = _dbContextRepo.GenericsDbContext.Find(int.Parse(id));
-            Debug.WriteLine(customer);
-            if (customer == null) return default(Customer);
-            Debug.WriteLine("b4 delete fires");
-            _dbContextRepo.GenericsDbContext.Delete(customer);
-            _dbContextRepo.GenericsDbContext.SaveChanges();
-            return customer;
+            try
+            {
+                Debug.WriteLine("inside delete");
+                var customer = _dbContextRepo.GenericsDbContext.Find(int.Parse(id));
+                Debug.WriteLine(customer);
+                if (customer == null) return -1;
+                Debug.WriteLine("b4 delete fires");
+                _dbContextRepo.GenericsDbContext.Delete(customer);
+                return _dbContextRepo.GenericsDbContext.SaveChanges();
+            }
+            catch (SqlException sqlExp)
+            {
+                _logger.Log(LogLevel.Error, sqlExp.Message, sqlExp);
+                return -1;
+            }
+            catch (Exception exp)
+            {
+                _logger.Log(LogLevel.Error, exp.Message, exp);
+                return -1;
+
+            }
         }
 
         [HttpGet("[action]")]

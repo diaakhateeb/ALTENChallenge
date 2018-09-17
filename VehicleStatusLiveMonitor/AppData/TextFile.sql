@@ -1,0 +1,144 @@
+﻿USE [master]
+GO
+/****** Object:  Database [ALTEN-Stockholm-Challenge]    Script Date: 17-Sep-18 8:38:24 PM ******/
+CREATE DATABASE [ALTEN-Stockholm-Challenge]
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET COMPATIBILITY_LEVEL = 110
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [ALTEN-Stockholm-Challenge].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET AUTO_CREATE_STATISTICS ON 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET RECOVERY FULL 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET  MULTI_USER 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET TARGET_RECOVERY_TIME = 0 SECONDS 
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'ALTEN-Stockholm-Challenge', N'ON'
+GO
+USE [ALTEN-Stockholm-Challenge]
+GO
+
+/****** Object:  User [alten]    Script Date: 17-Sep-18 8:38:24 PM ******/
+CREATE USER [alten] FOR LOGIN [alten] WITH DEFAULT_SCHEMA=[dbo]
+GO
+ALTER ROLE [db_owner] ADD MEMBER [alten]
+GO
+/****** Object:  Table [dbo].[Customer]    Script Date: 17-Sep-18 8:38:24 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Customer](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](250) NULL,
+	[Address] [nvarchar](max) NULL,
+ CONSTRAINT [PK_Company] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Vehicle]    Script Date: 17-Sep-18 8:38:24 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Vehicle](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Code] [nvarchar](100) NULL,
+	[RegNumber] [nvarchar](50) NULL,
+	[CustomerId] [int] NULL,
+ CONSTRAINT [PK_Vehicle] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[VehicleStatusTrans]    Script Date: 17-Sep-18 8:38:24 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[VehicleStatusTrans](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[PingTime] [datetime] NULL,
+	[Status] [nvarchar](3) NULL,
+	[VehicleId] [int] NULL,
+ CONSTRAINT [PK_VehStatusTrans] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+ALTER TABLE [dbo].[Vehicle]  WITH CHECK ADD  CONSTRAINT [FK_Vehicle_Customer] FOREIGN KEY([CustomerId])
+REFERENCES [dbo].[Customer] ([Id])
+GO
+ALTER TABLE [dbo].[Vehicle] CHECK CONSTRAINT [FK_Vehicle_Customer]
+GO
+ALTER TABLE [dbo].[VehicleStatusTrans]  WITH CHECK ADD  CONSTRAINT [FK_VehStatusTrans_Vehicle] FOREIGN KEY([VehicleId])
+REFERENCES [dbo].[Vehicle] ([Id])
+GO
+ALTER TABLE [dbo].[VehicleStatusTrans] CHECK CONSTRAINT [FK_VehStatusTrans_Vehicle]
+GO
+USE [master]
+GO
+ALTER DATABASE [ALTEN-Stockholm-Challenge] SET  READ_WRITE 
+GO

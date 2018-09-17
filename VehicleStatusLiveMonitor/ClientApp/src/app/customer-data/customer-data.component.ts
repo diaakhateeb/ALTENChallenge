@@ -53,8 +53,14 @@ export class CustomerDataComponent implements OnInit {
     if (confirmDelete) {
       this.customerServiceObject.deleteCustomer(id).subscribe(result => {
         console.log(result);
+        if (result === -1) {
+          alert("Can not delete Customer. Please make sure that Customer has no Vehicle(s) attached.");
+          return;
+        }
         this.customers = this.customers.filter(el => el.id !== id);
         alert("Customer deleted successfully.");
+      }, error => {
+        console.log(error);
       });
     }
   }
