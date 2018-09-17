@@ -53,12 +53,12 @@ The solution events including errors and exceptions are logged into a text file 
 ## Business functions application provides
 
  1. **[Customer](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/Controllers/CustomerServiceController.cs):**
-    - A- CRUD operations.
+    - A- CRUD operations (On Delete, Customer must be NOT attached to a Vehicle).
     - B- Attach Vehicle.
     - C- Detach Vehicle.
     
   2. **[Vehicle](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/Controllers/VehicleServiceController.cs):**
-     - A- CRUD operations.
+     - A- CRUD operations (On Delete, Vehicle must be NOT attached to a Customer). Vehicle is not physically deleted as it is the main system entity and could be attached to another Customer.
      - B- Attach Customer.
 
 3. **[Signaling](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/Controllers/VehicleConnectionStatusServiceController.cs):**
