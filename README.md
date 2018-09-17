@@ -87,7 +87,7 @@ you can create VM over cloud and install the required perquisite software such a
    - Run the database script to create database and tables.
    - Run the application from the browser.
 
-- Using Docker image:
+- Using [Docker](https://github.com/diaakhateeb/ALTENChallenge/blob/master/Dockerfile):
   - Install docker daemon.
   - From CLI, execute "docker build -t vehiclestatuslivemonitor ."
   - Then, execute "docker run -d -p 8080:80 --name myapp vehiclestatuslivemonitor" to open the browser and fire the application.
