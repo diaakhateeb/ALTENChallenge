@@ -115,8 +115,6 @@ namespace VehicleStatusLiveMonitor.Controllers
         public Vehicle DeleteVehicle(string id)
         {
             return _vehicleContextRepo.UnassociateVehicle(int.Parse(id));
-
-            //return vehicle;
         }
 
         [HttpGet("[action]")]
