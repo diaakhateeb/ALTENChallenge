@@ -4,7 +4,7 @@
 The solution objective is to enable one of our partners to view the status of the connection among some vehicles on a monitoring display.
 
 ## Description
-The vehicles send the status of the connection one time per minute. The status can be compared with a ping (network trace); no request from the vehicle means no connection.
+The vehicles send the status of the connection one time every 10 seconds. The status can be compared with a ping (network trace); no request from the vehicle means no connection.
 
 <strong>Vehicle Status can be classified as below:</strong>
 
@@ -32,7 +32,7 @@ From the ***end user perspective***, a workflow of a full signaling transaction 
  1. Query Vehicles with signal status checking command.
  2. Wait for Vehicles to reply their statuses (On/Off).
  3. Bind result to user interface.
- 4. Auto signaling command would be fired the minute after.
+ 4. Auto signaling command would be fired the 10 seconds after.
 
 From the ***technical perspective***, a workflow would be as follow:
 1. Based on user direction, Angular UI calls core TypeScript API services.
@@ -53,20 +53,20 @@ The solution events including errors and exceptions are logged into a text file 
 ## Business functions application provides
 
  1. **[Customer](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/Controllers/CustomerServiceController.cs):**
-    - A- CRUD operations.
+    - A- CRUD operations (On Delete, Customer must be NOT attached to a Vehicle).
     - B- Attach Vehicle.
     - C- Detach Vehicle.
     
   2. **[Vehicle](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/Controllers/VehicleServiceController.cs):**
-     - A- CRUD operations.
+     - A- CRUD operations (On Delete, Vehicle must be NOT attached to a Customer). Vehicle is not physically deleted as it is the main system entity and could be attached to another Customer.
      - B- Attach Customer.
 
 3. **[Signaling](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/Controllers/VehicleConnectionStatusServiceController.cs):**
-   - A- Ping Vehicle every 60 seconds and get status.
+   - A- Ping Vehicle every 10 seconds and get status.
    - B- Filter signaling by Customer, Vehicle and specific Status.
-   - C- Connection status is stored into database before binding to UI.
+   - C- Connection status is stored into database before binding to the UI.
    - D- Signaling result is published into RabbitMQ Event Bus.
-   - E- UI subscribes to the event bus and fetches the result.
+   - E- UI service brokers subscribes to the event bus and fetch the result.
  
  All the operations are developed in integrated components (services) that correlate to achieve the correct output.
 
