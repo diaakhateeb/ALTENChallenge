@@ -76,6 +76,7 @@ The application is hosted on GCP (Google Cloud Platform). You can follow one of 
 You create App Web Service and publish the application files to its directory. The cloud platform gives you capability to execute your database script through an online editor or you can connect from your local editor to the online engine.
  - **Virtual Machine**:
 you can create VM over cloud and install the required perquisite software such as web server, .NET Core framework, SQL Server database engine and publishing service.
+
 In all approaches, you need to install RabbitMQ.
 
 **Deployment approaches:**
