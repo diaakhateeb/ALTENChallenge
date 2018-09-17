@@ -75,7 +75,7 @@ you can create VM over cloud and install the required perquisite software such a
  
  The application is published on a GCP VM using IIS deployment service.
 
-## # Serverless Architecture
+## Serverless Architecture
 Serverless architecture (**FaaS**) is a software design pattern where application is hosted by a third-party service, eliminating the need for server software and hardware management by the developer. Application is broken up into individual functions that can be invoked and scaled individually (e.g. Microservices).
 Our monitoring application can take advantage of FaaS through architecting the system functions into separate components (services) such as Customer service, Vehicle Service and ConnectionStatus service that are hosted separately and connect to each other via communication base (Event Bus).
 
