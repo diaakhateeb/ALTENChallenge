@@ -18,14 +18,14 @@ Empty result on the screen means no vehicle gives the required status.
 ![enter image description here](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/Resources/images/alten-architecture.PNG)
 As we see here, the application consists of a front-end layer which is developed using Angular MVC ASP.NET Core (SPA), and middle-ware layer that consists of API gateway that communicates with the backend services.
    
-### 1. Front-end (FE):
-The layer is developed using AngularJS and TypeScript. It has Restful services (WebAPIs) for Customer, Vehicle and Connection Status application main entities. Such services communicate with the middleware through core TypeScript service libraries CustomerService, PingTransactionService, VehicleService. In addition, there is a timer service (TimerService) that calculates the next time where Vehicles will be signaled and updates the view instantly.
+### 1. [Front-end (FE)](https://github.com/diaakhateeb/ALTENChallenge/tree/master/VehicleStatusLiveMonitor):
+The layer is developed using AngularJS and TypeScript. It has Restful services (WebAPIs) for Customer, Vehicle and Connection Status application main entities. Such services communicate with the middleware through core TypeScript service libraries [CustomerService](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/ClientApp/services/customer-service.ts), [PingTransactionService](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/ClientApp/services/ping-transaction-service.ts), [VehicleService](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/ClientApp/services/vehicle-service.ts). In addition, there is a timer service ([TimerService](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/ClientApp/services/timer-service.ts)) that calculates the next time where Vehicles will be signaled and updates the view instantly.
 
 ### 2. Middleware (MW):
-It uses the BFF pattern to work in full duplex mode where it communicates the FE via WebAPi services and BE through Microservices APIs. MW layer uses RabbitMQ as a communication base for Vehicles signaling using Publisher/Subscribe technique.
+It uses the BFF pattern to work in full duplex mode where it communicates the FE via WebAPi services and BE through Microservices APIs. MW layer uses [RabbitMQ](https://github.com/diaakhateeb/ALTENChallenge/blob/master/RabbitMQEventBus/MqService.cs) as a communication base for Vehicles signaling using Publisher/Subscribe technique.
 
 ### 3. Backend (BE):
-It consists of SQL Server database which stores Customer, Vehicle and Signaling status transactions.
+It consists of [SQL Server database](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/AppData/TextFile.txt) which stores Customer, Vehicle and Signaling status transactions.
 
 From the ***end user perspective***, a workflow of a full signaling transaction would be as follow:
 
@@ -52,16 +52,16 @@ The solution events including errors and exceptions are logged into a text file 
 
 ## Business functions application provides
 
- 1. **Customer:**
+ 1. **[Customer](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/Controllers/CustomerServiceController.cs):**
     - A- CRUD operations.
     - B- Attach Vehicle.
     - C- Detach Vehicle.
     
-  2. **Vehicle:**
+  2. **[Vehicle](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/Controllers/VehicleServiceController.cs):**
      - A- CRUD operations.
      - B- Attach Customer.
 
-3. **Signaling:**
+3. **[Signaling](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/Controllers/VehicleConnectionStatusServiceController.cs):**
    - A- Ping Vehicle every 60 seconds and get status.
    - B- Filter signaling by Customer, Vehicle and specific Status.
    - C- Connection status is stored into database before binding to UI.
