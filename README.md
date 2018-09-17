@@ -29,10 +29,10 @@ It consists of SQL Server database which stores Customer, Vehicle and Signaling 
 
 From the ***end user perspective***, a workflow of a full signaling transaction would be as follow:
 
- **1.** Query Vehicles with signal status checking command.
- **2.** Wait for Vehicles to reply their statuses (On/Off).
- **3.** Bind result to user interface.
- **4.** Auto signaling command would be fired the minute after.
+ 1. Query Vehicles with signal status checking command.
+ 2. Wait for Vehicles to reply their statuses (On/Off).
+ 3. Bind result to user interface.
+ 4. Auto signaling command would be fired the minute after.
 
  **1.** Query Vehicles with signal status checking command.
  **2.** Wait for Vehicles to reply their statuses (On/Off).
