@@ -50,6 +50,22 @@ Every solution component has unit testing project:
 
 The solution events including errors and exceptions are logged into a text file that is created by default at the system partition. The location can be changed when creating an object of the logging class. 
 
+## Business functions application provides
+
+ 1. **Customer:**
+    - A- CRUD operations.
+    - B- Attach Vehicle.
+    - C- Detach Vehicle.
+    
+  2. **Vehicle:**
+     - A- CRUD operations.
+     - B- Attach Customer.
+
+3. **Signaling:**
+   - A- Ping Vehicle every 60 seconds and get status.
+   - B- Filter signaling by Customer, Vehicle and specific Status.
+   - C- Connection status is stored into database before binding to UI.
+
 ## Deployment on Cloud
 The application is hosted on GCP (Google Cloud Platform). You can follow one of the below pathways:
  - **Application Web Service**:
