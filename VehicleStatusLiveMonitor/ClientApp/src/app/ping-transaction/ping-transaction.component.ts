@@ -75,6 +75,7 @@ export class PingTransactionDataComponent implements OnInit, OnDestroy {
     this.vehicleStatuses = [];
     this.intervalObject = null;
     this.getVehicleStatusTransById(this.selectedStatusValue);
+    this.nextTickTime = this.timerServiceObject.getNextTime();
   }
 
   getAllCustomers(): void {
