@@ -3,7 +3,9 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using System;
 using System.Diagnostics;
+using System.IO;
 using System.Text;
 
 namespace RabbitMQEventBus
@@ -22,8 +24,19 @@ namespace RabbitMQEventBus
         /// </summary>
         public MqService()
         {
-            _config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-            _logger = new LoggerFactory().CreateLogger("MqService");
+            try
+            {
+                _config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+                _logger = new LoggerFactory().CreateLogger("MqService");
+            }
+            catch (IOException ioExp)
+            {
+                _logger.Log(LogLevel.Error, ioExp.Message);
+            }
+            catch (Exception exp)
+            {
+                _logger.Log(LogLevel.Error, exp.Message);
+            }
         }
         /// <summary>
         /// Publishes object to queue.
