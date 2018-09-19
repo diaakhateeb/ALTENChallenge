@@ -79,36 +79,50 @@ namespace VehicleStatusLiveMonitor.Controllers
             var customer = _dbContextRepo.GenericsDbContext.Find(custData.SelectToken("id").Value<int>());
             if (customer == null) return default(Customer);
 
-            customer.Name = custData.SelectToken("name").Value<string>();
-            customer.Address = custData.SelectToken("address").Value<string>();
-            _dbContextRepo.GenericsDbContext.SaveChanges();
-
             using (var db = _dbVehicleContextRepo.GenericsDbContext)
             {
-                string[] ids;
-
-                var currVehIds = custData.SelectToken("currentVehiclesIds").Value<string>();
-                if (!string.IsNullOrEmpty(currVehIds))
+                using (var dbTrans = db.DbContextTransaction)
                 {
-                    ids = JsonConvert.DeserializeObject(currVehIds).ToString().Split(",");
-                    foreach (var i in ids)
+                    try
                     {
-                        var vehicle = db.Find(int.Parse(i));
-                        if (vehicle != null) vehicle.CustomerId = null;
+                        customer.Name = custData.SelectToken("name").Value<string>();
+                        customer.Address = custData.SelectToken("address").Value<string>();
+
+                        string[] ids;
+
+                        var currVehIds = custData.SelectToken("currentVehiclesIds").Value<string>();
+                        if (!string.IsNullOrEmpty(currVehIds))
+                        {
+                            ids = JsonConvert.DeserializeObject(currVehIds).ToString().Split(",");
+                            foreach (var i in ids)
+                            {
+                                var vehicle = db.Find(int.Parse(i));
+                                if (vehicle != null) vehicle.CustomerId = null;
+                            }
+                        }
+
+                        var newVehIds = custData.SelectToken("newVehiclesIds").Value<string>();
+                        if (!string.IsNullOrEmpty(newVehIds))
+                        {
+                            ids = JsonConvert.DeserializeObject(newVehIds).ToString().Split(",");
+                            foreach (var i in ids)
+                            {
+                                var vehicle = db.Find(int.Parse(i));
+                                if (vehicle != null) vehicle.CustomerId = customer.Id;
+                            }
+                        }
+
+                        db.SaveChanges();
+                        _dbContextRepo.GenericsDbContext.SaveChanges();
+
+                        dbTrans.Commit();
+                    }
+                    catch (Exception exp)
+                    {
+                        dbTrans.Rollback();
+                        _logger.Log(LogLevel.Error, exp.Message, exp);
                     }
                 }
-
-                var newVehIds = custData.SelectToken("newVehiclesIds").Value<string>();
-                if (!string.IsNullOrEmpty(newVehIds))
-                {
-                    ids = JsonConvert.DeserializeObject(newVehIds).ToString().Split(",");
-                    foreach (var i in ids)
-                    {
-                        var vehicle = db.Find(int.Parse(i));
-                        if (vehicle != null) vehicle.CustomerId = customer.Id;
-                    }
-                }
-                db.SaveChanges();
             }
 
             return customer;

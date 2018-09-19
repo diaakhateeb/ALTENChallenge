@@ -1,5 +1,6 @@
 ﻿using DataDomainService.GenericsContext.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using System.Threading.Tasks;
 
 namespace DataDomainService.GenericsContext.Handlers
@@ -34,5 +35,9 @@ namespace DataDomainService.GenericsContext.Handlers
         {
             return _dbContext.SaveChangesAsync();
         }
+        /// <summary>
+        /// Database context transaction object.
+        /// </summary>
+        public IDbContextTransaction DbContextTransaction => _dbContext.Database.BeginTransaction();
     }
 }

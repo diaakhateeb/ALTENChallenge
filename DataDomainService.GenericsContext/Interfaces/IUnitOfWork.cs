@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore.Storage;
+using System.Threading.Tasks;
 
 namespace DataDomainService.GenericsContext.Interfaces
 {
@@ -17,5 +18,9 @@ namespace DataDomainService.GenericsContext.Interfaces
         /// </summary>
         /// <returns>Returns task object.</returns>
         Task<int> SaveChangesAsync();
+        /// <summary>
+        /// Database context transaction object.
+        /// </summary>
+        IDbContextTransaction DbContextTransaction { get; }
     }
 }
