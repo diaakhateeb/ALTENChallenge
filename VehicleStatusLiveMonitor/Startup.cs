@@ -5,17 +5,14 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using RabbitMQEventBus;
 
 namespace VehicleStatusLiveMonitor
 {
     public class Startup
     {
-        MqService _mqService;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            _mqService = new MqService();
         }
 
         public IConfiguration Configuration { get; }
@@ -31,16 +28,10 @@ namespace VehicleStatusLiveMonitor
                 configuration.RootPath = "ClientApp/dist";
             });
 
-            //services.AddDbContext<ALTENStockholmChallengeContext>();
-
             services.Configure<IISOptions>(options =>
             {
 
             });
-            //services.Configure<ApiBehaviorOptions>(options =>
-            //{
-            //    options.SuppressInferBindingSourcesForParameters = true;
-            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

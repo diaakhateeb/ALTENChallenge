@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
@@ -15,11 +16,13 @@ namespace RabbitMQEventBus
         private static string _body;
         private static object _jsonDeser;
         private readonly ILogger _logger;
+        private readonly IConfigurationRoot _config;
         /// <summary>
         /// Creates MqService instance.
         /// </summary>
         public MqService()
         {
+            _config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
             _logger = new LoggerFactory().CreateLogger("MqService");
         }
         /// <summary>
@@ -29,13 +32,10 @@ namespace RabbitMQEventBus
         /// <param name="data">Data object to be placed into the queue.</param>
         public virtual void Publish(string qName, object data)
         {
-            var connectionFactory = new ConnectionFactory
-            {
-                HostName = "localhost",
-                UserName = "guest",
-                Password = "guest"
-            };
-            _logger.LogInformation("b4 connection");
+            var connectionFactory = new ConnectionFactory();
+            _config.GetSection("RabbitMqConnection").Bind(connectionFactory);
+
+            _logger.Log(LogLevel.Information, "b4 connection");
             using (var connection = connectionFactory.CreateConnection())
             {
                 _logger.LogInformation("in connection");

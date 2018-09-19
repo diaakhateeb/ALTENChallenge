@@ -12,6 +12,7 @@ namespace VehicleStatusLiveMonitor
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>().UseIISIntegration();
+                .UseStartup<Startup>()
+                .UseIISIntegration();
     }
 }
