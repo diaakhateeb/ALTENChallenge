@@ -77,6 +77,8 @@ You create App Web Service and publish the application files to its directory. T
  - **Virtual Machine**:
 you can create VM over cloud and install the required perquisite software such as web server, .NET Core framework, SQL Server database engine and publishing service.
 
+In all approaches, you need to install RabbitMQ.
+
 **Deployment approaches:**
 
  - Using Visual Studio:
