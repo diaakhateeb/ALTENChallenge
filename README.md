@@ -25,7 +25,7 @@ The layer is developed using AngularJS and TypeScript. It has Restful services (
 It uses the BFF pattern to work in full duplex mode where it communicates the FE via WebAPi services and BE through Microservices APIs. MW layer uses [RabbitMQ](https://github.com/diaakhateeb/ALTENChallenge/blob/master/RabbitMQEventBus/MqService.cs) as a communication base for Vehicles signaling using Publisher/Subscribe technique.
 
 ### 3. Backend (BE):
-It consists of [SQL Server database](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/AppData/TextFile.txt) which stores Customer, Vehicle and Signaling status transactions.
+It consists of [SQL Server database](https://github.com/diaakhateeb/ALTENChallenge/blob/master/VehicleStatusLiveMonitor/AppData/DbScript.txt) which stores Customer, Vehicle and Signaling status transactions.
 
 From the ***end user perspective***, a workflow of a full signaling transaction would be as follow:
 
