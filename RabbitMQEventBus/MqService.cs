@@ -73,13 +73,8 @@ namespace RabbitMQEventBus
         /// <returns>Returns consumed object result.</returns>
         public virtual T Subscribe<T>(string qName)
         {
-
-            var connectionFactory = new ConnectionFactory
-            {
-                HostName = "localhost",
-                UserName = "guest",
-                Password = "guest"
-            };
+            var connectionFactory = new ConnectionFactory();
+            _config.GetSection("RabbitMqConnection").Bind(connectionFactory);
 
             using (var connection = connectionFactory.CreateConnection())
             {
