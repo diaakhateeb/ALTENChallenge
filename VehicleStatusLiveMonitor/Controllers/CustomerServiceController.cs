@@ -75,7 +75,8 @@ namespace VehicleStatusLiveMonitor.Controllers
         [HttpPost("[action]")]
         public Customer EditCustomer(object data)
         {
-            var custData = (JObject)JsonConvert.DeserializeObject(data.ToString());
+            if (data == null) return default(Customer);
+            var custData = (JObject)JsonConvert.DeserializeObject(Convert.ToString(data));
             var customer = _dbContextRepo.GenericsDbContext.Find(custData.SelectToken("id").Value<int>());
             if (customer == null) return default(Customer);
 
